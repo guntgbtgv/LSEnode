@@ -1,0 +1,11 @@
+<launch>
+	<node pkg="LSEnode" type="LSEnode" name="LSEnode" output="screen" cwd="node">
+		<remap from="/MeasLoader/imuMeas" to="/MeasLoader/imuMeas"/>
+		<remap from="/MeasLoader/encMeas" to="/MeasLoader/encMeas"/>
+		<remap from="/MeasLoader/posMeas" to="/MeasLoader/posMeas"/>
+	</node>
+	<node pkg="rxtools" type="rxplot" name="plot_att" args="-p 20 -r 10 -b 20 /LSE/filter/pose/pose/orientation/x /LSE/filter/pose/pose/orientation/y /LSE/filter/pose/pose/orientation/z /LSE/filter/pose/pose/orientation/w"></node>
+	<node pkg="rxtools" type="rxplot" name="plot_pos" args="-p 20 -r 10 -b 20 /LSE/filter/pose/pose/position/x /LSE/filter/pose/pose/position/y /LSE/filter/pose/pose/position/z"></node>
+	<node pkg="rxtools" type="rxplot" name="plot_vel" args="-p 20 -r 10 -b 20 /LSE/filter/velocity/vector/x /LSE/filter/velocity/vector/y /LSE/filter/velocity/vector/z"></node>
+	<node pkg="rxtools" type="rxplot" name="plot_rr" args="-p 20 -r 10 -b 20 /LSE/filter/rotrate/vector/x /LSE/filter/rotrate/vector/y /LSE/filter/rotrate/vector/z"></node>
+</launch>

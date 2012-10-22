@@ -1,0 +1,13 @@
+<package>
+  <description brief="LSEnode">
+     LSE node
+  </description>
+  <author>Michael Blösch</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <depend package="roscpp"/>
+  <depend package="std_msgs"/>
+  <depend package="geometry_msgs"/>
+</package>
+
+
