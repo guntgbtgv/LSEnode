@@ -1,0 +1,14 @@
+<launch>
+	<node pkg="LSEnode" type="LSEnode" name="LSEnodeOCEKF" output="screen" cwd="node" args="-f ParametersOCEKF.xml">
+		<remap from="/MeasLoader/imuMeas" to="/MeasLoader/imuMeas"/>
+		<remap from="/MeasLoader/encMeas" to="/MeasLoader/encMeas"/>
+		<remap from="/MeasLoader/posMeas" to="/MeasLoader/posMeas"/>
+		<remap from="/LSE/filter/pose" to="/LSE/filterOCEKF/pose"/>
+		<remap from="/LSE/filter/velocity" to="/LSE/filterOCEKF/velocity"/>
+		<remap from="/LSE/filter/rotrate" to="/LSE/filterOCEKF/rotrate"/>
+	</node>
+	<node pkg="rxtools" type="rxplot" name="plot_att" args="-p 20 -r 10 -b 20 /LSE/filterOCEKF/pose/pose/orientation/x /LSE/filterOCEKF/pose/pose/orientation/y /LSE/filterOCEKF/pose/pose/orientation/z /LSE/filterOCEKF/pose/pose/orientation/w"></node>
+	<node pkg="rxtools" type="rxplot" name="plot_pos" args="-p 20 -r 10 -b 20 /LSE/filterOCEKF/pose/pose/position/x /LSE/filterOCEKF/pose/pose/position/y /LSE/filterOCEKF/pose/pose/position/z"></node>
+	<node pkg="rxtools" type="rxplot" name="plot_vel" args="-p 20 -r 10 -b 20 /LSE/filterOCEKF/velocity/vector/x /LSE/filterOCEKF/velocity/vector/y /LSE/filterOCEKF/velocity/vector/z"></node>
+	<node pkg="rxtools" type="rxplot" name="plot_rr" args="-p 20 -r 10 -b 20 /LSE/filterOCEKF/rotrate/vector/x /LSE/filterOCEKF/rotrate/vector/y /LSE/filterOCEKF/rotrate/vector/z"></node>
+</launch>

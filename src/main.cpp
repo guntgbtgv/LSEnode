@@ -11,7 +11,7 @@
 #include "sensor_msgs/JointState.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "geometry_msgs/Vector3Stamped.h"
-#include "Manager.hpp"
+#include "LSE/Manager.hpp"
 
 using namespace std;
 
@@ -125,6 +125,9 @@ void encCallback(const sensor_msgs::JointState::ConstPtr& msg)
 		for(int j=0;j<LSE_DOF_LEG;j++){
 			encMeas.e_(j,i) = msg->position[i*LSE_DOF_LEG+j];
 		}
+//		for(int j=0;j<LSE_DOF_LEG;j++){
+//			encMeas.v_(j,i) = msg->velocity[i*LSE_DOF_LEG+j];
+//		}
 		encMeas.CF_[i] = (int)msg->effort[i*LSE_DOF_LEG];
 	}
 	pManager_->addEncMeas(msg->header.stamp.toSec(),encMeas);
@@ -155,9 +158,18 @@ int main (int argc, char **argv)
 	ros::init(argc, argv, "LSE_test");
 	ros::NodeHandle nh;
 
+	string fileName = "Parameters.xml";
+
+	for(int i=0;i<argc;i++){
+		if (strcmp(argv[i],"-f")==0) {
+			fileName = argv[i+1];
+		}
+	}
+
 	// LSE
-	pManager_ = new LSE::Manager("Parameters.xml",&legKin,NULL);
+	pManager_ = new LSE::Manager(fileName.c_str(),&legKin,&legKinJac);
 	pManager_->resetEstimate(0);
+	pManager_->setSamplingTime(0.0025);
 	gotFirstMeas_ = false;
 
 	// Publishers

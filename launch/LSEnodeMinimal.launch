@@ -1,0 +1,7 @@
+<launch>
+	<node pkg="LSEnode" type="LSEnode" name="LSEnode" output="screen" launch-prefix="gdb -ex run --args">
+		<remap from="/MeasLoader/imuMeas" to="/MeasLoader/imuMeas"/>
+		<remap from="/MeasLoader/encMeas" to="/MeasLoader/encMeas"/>
+		<remap from="/MeasLoader/posMeas" to="/MeasLoader/posMeas"/>
+	</node>
+</launch>
