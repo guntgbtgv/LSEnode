@@ -11,7 +11,7 @@
 #include "sensor_msgs/JointState.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "geometry_msgs/Vector3Stamped.h"
-#include "LSE/Manager.hpp"
+#include "Manager.hpp"
 
 using namespace std;
 
@@ -169,7 +169,7 @@ int main (int argc, char **argv)
 	// LSE
 	pManager_ = new LSE::Manager(fileName.c_str(),&legKin,&legKinJac);
 	pManager_->resetEstimate(0);
-	pManager_->setSamplingTime(0.0025);
+	// pManager_->setSamplingTime(0.0025);
 	gotFirstMeas_ = false;
 
 	// Publishers

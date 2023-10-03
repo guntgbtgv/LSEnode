@@ -21,3 +21,6 @@ DEPENDENCIES:
 - ROS (including sensor_msgs and geometry_msgs)
 - Eigen3
 - LSE library (if you did not use the install flag during compilation you will have to link the header files and the library by hand)
+
+Todo:
+- fugure out why changing '#include lse/Manager.h' to '#include Manager.h' worked...  

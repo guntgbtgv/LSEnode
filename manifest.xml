@@ -1,4 +1,4 @@
-<package>
+<!-- <package>
   <description brief="LSEnode">
      LSE node
   </description>
@@ -10,4 +10,4 @@
   <depend package="geometry_msgs"/>
 </package>
 
-
+ -->

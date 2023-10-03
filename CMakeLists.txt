@@ -1,15 +1,52 @@
 cmake_minimum_required (VERSION 2.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+project(lse_node)
 
-SET(CMAKE_BUILD_TYPE "Release")
-
-rosbuild_init()
-
+find_package(catkin REQUIRED COMPONENTS
+  cmake_modules
+  roscpp
+  sensor_msgs
+  geometry_msgs
+  lse
+)
 find_package(Eigen REQUIRED)
-find_package(LSE REQUIRED)
+# find_package(lse REQUIRED)
 
-include_directories(${Eigen_INCLUDE_DIRS})
-include_directories(${LSE_INCLUDE_DIRS})
+###################################
+## catkin specific configuration ##
+###################################
+## The catkin_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+## INCLUDE_DIRS: uncomment this if your package contains header files
+## LIBRARIES: libraries you create in this project that dependent projects also need
+## CATKIN_DEPENDS: catkin_packages dependent projects also need
+## DEPENDS: system dependencies of this project that dependent projects also need
+catkin_package(
+  # INCLUDE_DIRS
+  #   ${CMAKE_CURRENT_SOURCE_DIR}/../LSE/include
+  CATKIN_DEPENDS
+    roscpp
+    sensor_msgs
+    geometry_msgs
+    lse
+  DEPENDS
+    Eigen
+)
 
-rosbuild_add_executable(LSEnode src/main.cpp)
-target_link_libraries(LSEnode ${LSE_LIBRARIES})
+###########
+## Build ##
+###########
+# include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+# SET(CMAKE_BUILD_TYPE "Release")
+# rosbuild_init()
+
+include_directories(
+    ${catkin_INCLUDE_DIRS}
+    ${Eigen_INCLUDE_DIRS}
+)
+
+message("{catkin_INCLUDE_DIRS}: " ${catkin_INCLUDE_DIRS})
+
+add_executable(${PROJECT_NAME} src/main.cpp)
+target_link_libraries(${PROJECT_NAME} 
+    ${catkin_LIBRARIES} 
+)
